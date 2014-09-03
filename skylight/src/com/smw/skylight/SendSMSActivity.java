@@ -21,9 +21,7 @@ public class SendSMSActivity extends Activity {
         
         phoneNumber = getIntent().getExtras().getString("phoneNumber");
         message = getIntent().getExtras().getString("message");
-        
-        
-        //splitMessage(phoneNumber,message);
+
         sendSMS(phoneNumber,message);
         
         finish();
@@ -37,7 +35,22 @@ public class SendSMSActivity extends Activity {
     {        
         PendingIntent pi = PendingIntent.getActivity(this, 0, new Intent(this, RestActivity.class), 0);                
         SmsManager sms = SmsManager.getDefault();
-        sms.sendTextMessage(phoneNumber, null, message, pi, null);        
+       
+        String[] messageParts = message.split("><");
+        if(messageParts.length > 1)
+        {
+        	for (int i = 0; i < messageParts.length; i++)
+    		{
+            	
+            	sms.sendTextMessage(phoneNumber, null, messageParts[i]+"\n("+(i+1)+"/"+messageParts.length+")", pi, null);    
+            	
+    		}
+        }
+        else
+        {
+        	sms.sendTextMessage(phoneNumber, null, messageParts[0], pi, null);    
+        }
+        
     } 
     
 //    //---sends an SMS message to another device---

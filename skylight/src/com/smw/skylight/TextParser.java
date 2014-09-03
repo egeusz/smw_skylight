@@ -1,6 +1,5 @@
 package com.smw.skylight ;
 
-import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -10,8 +9,8 @@ import android.util.Log;
 
 //This Class provides fucntions to parse Text 
 public class TextParser {
-	String moreList 		= "(more|m|higher|h|greater|bigger|larger)"; 
-	String lessList 		= "(less|l|lower|smaller|fewer)";
+	String moreList 		= "(more|m|higher|h|g|greater|bigger|larger|true)"; 
+	String lessList 		= "(less|l|lower|smaller|fewer|s|false)";
 	
 //	String yesList 		= "(yes|yeah|y|yup|yep|yuppers|true|correct|sure|of course|I suppose|Damn straight|Definitely|positive|agreed|right on|righton|groovy|si|sí|oui)"; 
 //	String noList 		= "(no|nope|n|nah|not|noo|negative|false|wrong|sorry|no|siento|pas|désolé)"; 
@@ -20,7 +19,7 @@ public class TextParser {
 //	private static final String PLAYERSTATE_ACTIVE 		= "active";
 //	private static final String PLAYERSTATE_PAUSED 		= "paused";
 	
-	private static final String COMMAND_PREFIX 			= "r>";
+	private static final String COMMAND_PREFIX 			= ">";
 	
 	
 	ResponseTreeBuilder rtBuilder; 
