@@ -1,5 +1,7 @@
 package com.smw.skylight ;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -43,7 +45,7 @@ public class OnReceiveSMSActivity extends Activity {
 	    		{
 	    			AddNewPlayer(phoneNumber); //add the player. 
 	    			Response nextResponse = db.getResponse(1);
-	    			SendOutSMS(phoneNumber, "Welcome to skylight.><These questions are about energy. Answer \"more\" or \"less\" to each. And go with your gut!><"+nextResponse.getText());		
+	    			SendOutSMS(phoneNumber, "Welcome to skylight.><These questions are about energy. Answer \"more\" or \"less\" to each. And go with your gut! :)><"+nextResponse.getText());		
 	    		}
 	    	}
 	    	else 
@@ -163,16 +165,12 @@ public class OnReceiveSMSActivity extends Activity {
 			}
 			outMessage += currentResponse.getAnswerText();
 			//["answer 1/-1", "playerguess 1/-1/0", "correct 1/0" ,"question answered" ] 
-			outUDP = "["+playerguess+","+correctAns+","+outUDP+","+_player.getCurrentQuestion()+"]";
+			outUDP = ""+playerguess+","+correctAns+","+outUDP+","+_player.getCurrentQuestion()+" ";
 			
 			String nextquestion = AskNextQuestion(_phoneNumber,_player);
 			SendOutSMS(_phoneNumber, outMessage+"><"+nextquestion);
-			new UDPTask().execute(outUDP);
-		
-			
-			
-			
-			
+			List<String> ips = db.getAllUDPIP();
+	    	new UDPTask().execute(outUDP,ips.get(0));
     }
     		
     		

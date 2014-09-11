@@ -34,7 +34,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_TEXT = "text";  
     private static final String KEY_ANSWER = "answer";
     private static final String KEY_ANSWERTEXT = "answertext";
-        
+    
+    // Contacts table name
+    private static final String TABLE_UDPIP = "udpip";
+    // Contacts Table Columns names
+    private static final String KEY_IP = "ip";
     
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -43,6 +47,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     // Creating Tables
     @Override
     public void onCreate(SQLiteDatabase db) {
+    	//Player Table
     	String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_PLAYERS + "("
     			+ KEY_PH_NO + 			" TEXT,"
                 + KEY_CURRENTQUESTION + " INTEGER,"
@@ -52,6 +57,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     			+ ")";
         db.execSQL(CREATE_CONTACTS_TABLE);
         
+        //Response Table
         String CREATE_RESPONSE_TABLE = "CREATE TABLE " + TABLE_RESPONSES + "("
     			+ KEY_ID + 				" INTEGER,"
     			+ KEY_TEXT  +			" TEXT,"
@@ -60,6 +66,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     			
     			+ ")";
         db.execSQL(CREATE_RESPONSE_TABLE);
+        
+        //UDP IP Table
+        String CREATE_UDPIP_TABLE = "CREATE TABLE " + TABLE_UDPIP + "("
+    			+ KEY_IP + 			" TEXT"
+    			+ ")";
+        db.execSQL(CREATE_UDPIP_TABLE);
+
     }
  
     // Upgrading database
@@ -68,6 +81,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // Drop older table if existed
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PLAYERS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_RESPONSES);
+        db.execSQL("DROP TABLE IF EXISTS " + KEY_IP);
         // Create tables again
         onCreate(db);
     }
@@ -90,7 +104,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.close(); // Closing database connection
     }
     
- // Adding new RESPONSE
+    //Adding new RESPONSE
     void addResponse(Response response) {
         SQLiteDatabase db = this.getWritableDatabase();
  
@@ -103,6 +117,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.insert(TABLE_RESPONSES, null, values);
         db.close(); // Closing database connection
     }
+    
+    
+    //Adding new UDP IP
+    void addUDPIP(String _ip) {
+        SQLiteDatabase db = this.getWritableDatabase();
+ 
+        ContentValues values = new ContentValues();
+        values.put(KEY_IP, _ip); 
+        // Inserting Row
+        db.insert(TABLE_UDPIP, null, values);
+        db.close(); // Closing database connection
+    }
+    
     
     // Getting single Player
     Player getPlayer(String _phoneNumber) {
@@ -217,7 +244,31 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         // return contact list
         return responseList;
     }
-    // Updating single contact
+    
+    // Getting All UDP IPS
+    public List<String> getAllUDPIP() {
+        List<String> ipList = new ArrayList<String>();
+        // Select All Query
+        String selectQuery = "SELECT  * FROM " + TABLE_UDPIP;
+ 
+        SQLiteDatabase db = this.getWritableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+ 
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do { 
+                // adding ip to list
+            	ipList.add(cursor.getString(0));
+            } while (cursor.moveToNext());
+        }
+ 
+        db.close();
+        
+        // return contact list
+        return ipList;
+    }
+    
+    // Updating single player
     public int updatePlayer(Player player) {
         SQLiteDatabase db = this.getWritableDatabase();
  
@@ -237,6 +288,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
        
     }
  
+    // Updating UDP IP
+    public int updateUDPIP(String _ip) {
+        SQLiteDatabase db = this.getWritableDatabase();
+ 
+        ContentValues values = new ContentValues();
+        values.put(KEY_IP,              _ip); // Player Phone
+        
+        int dU =  db.update(TABLE_UDPIP, values, null, null);
+       
+        db.close();
+        
+        // updating row
+        return dU;
+       
+    }
+    
     // Deleting single player
     public void deletePlayer(Player player) {
         SQLiteDatabase db = this.getWritableDatabase();
@@ -287,6 +354,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     			
     			+ ")";
         db.execSQL(CREATE_RESPONSE_TABLE);
+        db.close();
+    }
+    
+    public void ClearUDPIPTable()
+    {
+    	SQLiteDatabase db = this.getWritableDatabase();
+    	Log.d(">> Data Handler"  , "Clearing UDPIP Table");
+    	db.execSQL("DROP TABLE IF EXISTS " + TABLE_UDPIP);
+    	
+    	String CREATE_UDPIP_TABLE = "CREATE TABLE " + TABLE_UDPIP + "("
+     			+ KEY_IP + 			" TEXT"
+     			+ ")";
+        db.execSQL(CREATE_UDPIP_TABLE);
         db.close();
     }
 }

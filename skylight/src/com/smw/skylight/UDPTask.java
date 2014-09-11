@@ -15,16 +15,23 @@ public class UDPTask extends AsyncTask<String, Void, String> {
 protected String doInBackground(String... params) {
  
     String message =  params[0];
-    Log.d(">> UDP TASK"  , "Sending "+message);
+    String udp_ip  =  params[1];
+    String[] udp_ip_parts = udp_ip.split(":");
+    String ip   = udp_ip_parts[0];
+    int socket = Integer.parseInt(udp_ip_parts[1]);
+    
+    Log.d(">> UDP TASK"  , "Sending "+message+" to "+ip+" : "+socket);
 	DatagramSocket ds = null;
     InetAddress local = null;
+    
     try 
     {
-    	local = InetAddress.getByName("192.168.1.42");
+    	local = InetAddress.getByName(ip);
+    	//local = InetAddress.getByName("192.168.1.42");
     	//local = InetAddress.getByName("64.106.96.137");
     	ds = new DatagramSocket();
         DatagramPacket dp;                          
-        dp = new DatagramPacket(message.getBytes(), message.length(), local, 5005);
+        dp = new DatagramPacket(message.getBytes(), message.length(), local, socket);
         ds.setBroadcast(true);
         ds.send(dp);
     } 

@@ -1,5 +1,6 @@
 package com.smw.skylight ;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -165,10 +166,25 @@ public class TextParser {
 //    		AdminCMD_ToggleAllPlayerPause(_phoneNumber,args); 
 //    		return true; 
 //        }
-    	else if(CheckCommand("udp", args[0]))
+    	else if(CheckCommand("send udp", args[0]))
         {//--Show All PLayers 
     		
     		return AdminCMD_SendUDPPacket(_phoneNumber, args); 
+        }
+    	else if(CheckCommand("show udp ip", args[0]))
+        {//--Show All PLayers 
+    		
+    		return AdminCMD_ShowUDPIP(_phoneNumber, args); 
+        }
+    	else if(CheckCommand("set udp ip", args[0]))
+        {//--Show All PLayers 
+    		
+    		return AdminCMD_SetUDPIP(_phoneNumber, args); 
+        }
+    	else if(CheckCommand("reset udp ip", args[0]))
+        {//--Show All PLayers 
+    		
+    		return AdminCMD_ResetUDPIP(_phoneNumber, args); 
         }
     	else if(CheckCommand("help", args[0]))
         {//--Show All PLayers 
@@ -191,7 +207,17 @@ public class TextParser {
   		{
   			return true;
   		}
-  		return false; 
+  		else
+  		{
+	  		//check if there is a space. 
+	  		command = COMMAND_PREFIX +" "+ _command;
+	  		command = command.toLowerCase(Locale.getDefault()); 
+	  		if (_message.toLowerCase(Locale.getDefault()).startsWith(command))
+	  		{
+	  			return true;
+	  		}
+	  		return false; 
+  		}
   	}
     //------ Splits a message formatted into commands into an array of arguments. "R> some command -arg1 -arg2" -> [CMD some command][arg1][arg2]"
     public String[] FormatCommand(String _message)
@@ -294,19 +320,51 @@ public class TextParser {
     }
     public String AdminCMD_SendUDPPacket(String _phoneNumber,  String[] args)
     {
-    	new UDPTask().execute(args[1]);
-    	return "r> Packet Sent With\r\n  \"" + args[1]+"\"";
+    	List<String> ips = db.getAllUDPIP();
+    	new UDPTask().execute(args[1],ips.get(0));
+    	return "r> Packet Sent to \r\n  \"" + ips.get(0)+"\" \r\n with \""+args[1]+ "\"";
     }
+    public String AdminCMD_ShowUDPIP(String _phoneNumber,  String[] args)
+    {
+    	List<String> ips = db.getAllUDPIP();
+    	return "r> UDP IP is \r\n  \"" + ips.get(0)+"\"";
+    }
+    public String AdminCMD_SetUDPIP(String _phoneNumber,  String[] args)
+    {
+    	 List<String> ips = db.getAllUDPIP();
+    	 if(ips.size() == 0)
+    	 {
+    		 db.addUDPIP(args[1]);
+    	 }
+    	 else
+    	 {
+    		 db.updateUDPIP(args[1]);
+    	 }
+    	 List<String> ips_check = db.getAllUDPIP();
+    	 return "r> UDP IP set to \r\n  \"" + ips_check.get(0)+"\"";
+    }
+    public String AdminCMD_ResetUDPIP(String _phoneNumber,  String[] args)
+    {
+    	db.ClearUDPIPTable();
+    	db.addUDPIP(args[1]);
+    	return "r> UDP IP Cleared. Ip reset to\r\n  \"" + args[1]+"\"";
+    }
+    
     public String AdminCMD_Help()
     {
     	return "r> COMMANDS \r\n" +
     		   "> show all players\r\n" +
     		   "> show player -[phonenumber]\r\n" +
     		   "> delete all players\r\n" +
-    		   "> delete player -[phonenumber]\r\n" +	   
-    		   "> build response table -[name]\r\n" +
+    		   "> delete player -[phonenumber]" +	
+    		   "><"+
+    		   "> build response table -[table name]\r\n" +
     		   "> show response table\r\n" +
-    		   "> udp -[string]\r\n" +
+    		   "> send udp -[ip:socket]\r\n" +
+    		   "> show udp ip -[ip:socket]\r\n" +
+    		   "> set udp ip -[ip:socket]" +
+    		   "><"+
+    		   "> reset udp ip -[ip:socket]\r\n" +
     		   "> help\r\n" +
     		   "";    
     	
@@ -324,12 +382,12 @@ public class TextParser {
 			}
 			else 
 			{
-				return "r> ERROR \r\n "+args[1]+"not correct id for a table. Try \"rain\" or \"test\"";	
+				return "r> ERROR \r\n "+args[1]+"not correct id for a table. Try \"skylight\" or \"test\"";	
 			}
 		}
     	else
     	{
-    		return "r> ERROR \r\n Table id must be specified. Try \"rain\" or \"test\" ";	
+    		return "r> ERROR \r\n Table id must be specified. Try \"skylight\" or \"test\" ";	
     	}
     }
     public String AdminCMD_ShowResponseTable(String _phoneNumber,  String[] args)

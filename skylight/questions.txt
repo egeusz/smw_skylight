@@ -1,0 +1,40 @@
+1 Q: How much energy does a square meter of the ground receive from the sun per hour? more or less than 500 watts?
+  A: More. There are 1000W of sunlight per square meter on a cloudless day. Thats 1 kiloWatt hour (kWh) of sunlight per meter per hour.
+	A 40-watt light bulb operating for 25 hours uses one kilowatt-hour. 1 kWh is also 860 food Calories.
+
+2 Q: Every year over 700,000 people visit the Albuquerque International Balloon Fiesta. Is that more or less visitors than the population of Albuquerque?
+  A: More. The population of Albuquerque is about 555,400. In 2013, 856,986 visitors attended the park.
+
+3 Q: The Albuquerque Balloon Fiesta Park is about 54 football fields in size. Approximately 288,954 square meters. 
+     How many kW of sunlight energy does the park receive at noon on a clear day? More or less than 100,000kW?
+  A: More. There are approximately 1000 watts(1kW) of sunlight per square meter on a clear day at noon.  
+     1kWx288,954 square meters equals 288,954kW of power.
+
+4 Q: If the entire surface of the Balloon Fiesta Park were covered with solar panels, it would generate approximately 43,400 kWatts at noon on  a cloudless day.
+     How many refrigerators could that power? more or less than 60,000?
+  A: Less, it's nearly 60,000, but the average refrigerator is about 0.750 kWatts so-  
+     approximately 58,000 refrigerators could be powered at noon on a cloudless day.
+
+5 Q: Hot air balloons use propane as fuel. Does propane contain more or less energy per gallon than gasoline?
+  A: Less. Propane contains about 27 kWh and gasoline contains about 34 kWh.
+
+6 Q: How many gallons of gasoline would be equivalent to one hour of energy from a Balloon Fiesta Park-sized solar array at noon on a cloudless day?- 
+     More or Less than 1,000 gallons?
+  A: More. There are 33.41 kWh of energy in 1 gallon of gas. That is equivalent to 1297.3 gallons of gasoline produced.
+
+7 Q: Does the average human consume more or less energy per day than that in a gallon of gasoline?
+  A: Much less. A gallon of gasoline contains 33.41kWh of energy while the average human uses 1.8 kWh a day.
+	 Your Basal Metabolic Rate (BMR) is the amount of energy you'd burn if you stayed in bed all day.
+	 If humans could eat gasoline, 1 gallon would feed 18 people for a day!
+
+8 Q: Does a car that gets 15mpg use more or less energy than one that gets 20mpg to travel one mile?
+  A: More. A car that gets 15mpg uses 2.2kWh of gasoline to travel one mile while a car that 20mpg uses 1.7kWh. 
+	 An average car consumes about the same amount of energy to travel 1 mile as you do in an entire day! (1.8 kWh)
+
+9 Q: Does your body produce more or less pounds of CO2 per kWh of energy than an average car?
+  A: You produce more!  
+	 A car that gets 15mpg produces 0.6lb of CO2 per kWh. The average human produces 2.3lb of CO2 a day, so 2.3lb a day at 1.8kWh a day is 1.2lb of CO2 per kWh.
+
+10 Q: In a day, do all humans on earth produce more or less CO2 from breathing than the US produces from burning fossil fuels?
+   A: Less. 16,205,800,000 lbs of CO2 is produced by all humans in a day. -
+      The US produces more than twice that, 32,950,000,000 lbs of CO2 in a day from burning fossil fuels.
